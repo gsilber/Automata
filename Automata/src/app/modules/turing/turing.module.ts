@@ -2,15 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { TuringPageComponent } from './turing-page/turing-page.component';
+import { TuringRoutingModule } from './turing-routing.module';
 
-const routes: Routes = [
-  {path: '', component: TuringPageComponent}
-];
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    TuringRoutingModule
   ],
   declarations: [TuringPageComponent]
 })

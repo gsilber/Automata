@@ -1,18 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Routes, RouterModule } from '@angular/router';
 import { FsmPageComponent } from './fsm-page/fsm-page.component';
+import { FsmRoutingModule } from './fsm-routing.module';
 
 
 
-const routes: Routes = [
-  {path: '', component: FsmPageComponent},
-];
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    FsmRoutingModule
   ],
   declarations: [FsmPageComponent]
 })
