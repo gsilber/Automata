@@ -3,39 +3,41 @@
     <div style='overflow: hidden;' [style.width.px]='scrollSize' [style.height.px]='scrollSize'>
       <svg:svg class='fsm-view-window' [attr.width]='windowSize' [attr.height]='windowSize' [attr.viewBox]='scaleBox'>
         <ng-template ngFor let-state [ngForOf]='fsm.states'>
-            <ng-template [ngIf]='state.start'>
-              <svg:circle class='fsm-view-state' [attr.cx]='state.position.x' [attr.cy]='state.position.y' [attr.r]='stateRadius' fill='yellow'
-            stroke='blue' stroke-width='2'></svg:circle>
-            </ng-template>
-            <ng-template [ngIf]='!state.start'>
-                <svg:circle class='fsm-view-state-start' [attr.cx]='state.position.x' [attr.cy]='state.position.y' [attr.r]='stateRadius' fill='white'
-               stroke='blue' stroke-width='2'></svg:circle>
-              </ng-template>
+          <ng-template [ngIf]='state.start'>
+            <svg:circle class='fsm-view-state' [attr.cx]='state.position.x' [attr.cy]='state.position.y' [attr.r]='stateRadius'
+              fill='yellow' stroke='blue' stroke-width='2'></svg:circle>
+          </ng-template>
+          <ng-template [ngIf]='!state.start'>
+            <svg:circle class='fsm-view-state-start' [attr.cx]='state.position.x' [attr.cy]='state.position.y' [attr.r]='stateRadius'
+              fill='white' stroke='blue' stroke-width='2'></svg:circle>
+          </ng-template>
           <ng-template [ngIf]='state.final'>
             <svg:circle class='fsm-view-state-final' [attr.cx]='state.position.x' [attr.cy]='state.position.y' [attr.r]='stateRadius*.85'
               [attr.fill]='state.start?"yellow":"white"' stroke='blue' stroke-width='2'></svg:circle>
           </ng-template>
-          <svg:text class='fsm-view-state-text' [attr.x]='state.position.x' [attr.y]='state.position.y' fill='blue' dy='.4em' text-anchor='middle' font-weight='bold'>
+          <svg:text class='fsm-view-state-text' [attr.x]='state.position.x' [attr.y]='state.position.y' fill='blue' dy='.4em'
+            text-anchor='middle' font-weight='bold'>
             {{state.label}}
           </svg:text>
 
-            <svg:circle [attr.cx]='state.position.x' [attr.cy]='state.position.y' [attr.r]='stateRadius' fill='transparent'
+          <svg:circle [attr.cx]='state.position.x' [attr.cy]='state.position.y' [attr.r]='stateRadius' fill='transparent'
             stroke='none' stroke-width='2'></svg:circle>
-            
-              <svg:rect class='fsm-view-state-selected' [attr.x]='state.position.x-stateRadius-1' [attr.y]='state.position.y-stateRadius-1' [attr.width]='stateRadius*2+2' [attr.height]='stateRadius*2+2'
-                fill='transparent' [ngClass]='{"fsm-view-state-unselected": !inEditor || !selected===state}' stroke='black' stroke-width='1' stroke-dasharray='5px 5px'
-                (click)='onStateClick($event,state)'
-                (dblclick)='onStateDblClick($event,state)'
-                (mousedown)='onStateMouseDown($event,state)'
-                (mouseup)='onStateMouseUp($event,state)'
-                (mouseenter)='onStateMouseEnter($event,state)'
-                (mouseleave)='onStateMouseLeave($event,state)'
-                (mousemove)='onStateMouseMove($event,state)'
-                (mouseover)='onStateMouseOver($event,state)'
-                ></svg:rect>
+
+          <svg:rect class='fsm-view-state-selected' [attr.x]='state.position.x-stateRadius-1' [attr.y]='state.position.y-stateRadius-1'
+            [attr.width]='stateRadius*2+2' [attr.height]='stateRadius*2+2' fill='transparent' [ngClass]='{"fsm-view-state-unselected": !inEditor || !selected===state}'
+            stroke='black' stroke-width='1' stroke-dasharray='5px 5px' (click)='onStateClick($event,state)' (dblclick)='onStateDblClick($event,state)'
+            (mousedown)='onStateMouseDown($event,state)' (mouseup)='onStateMouseUp($event,state)' (mouseenter)='onStateMouseEnter($event,state)'
+            (mouseleave)='onStateMouseLeave($event,state)' (mousemove)='onStateMouseMove($event,state)' (mouseover)='onStateMouseOver($event,state)'></svg:rect>
           
+            <!-- Transitions -->
+          <ng-template ngFor let-trans [ngForOf]='state.outboundTransitions'>
+            <!-- Draw Transitions here and hook up event handlers to the selected rectangle -->
+            <!-- Need to draw a curve with an arrowhead and some concept of concavity and direction of concavity-->
+            <!-- Or a loop back to ourself -->
+            <!-- Draw Text-->
+            <!-- Wrap it in a rotated rect with dashes that are only visible if selected and attach event handlers to the rect -->
+          </ng-template>
         </ng-template>
-        <!-- Draw Transitions here and hook up event handlers to the selected rectangle -->
       </svg:svg>
     </div>
   </div>
