@@ -1,3 +1,25 @@
-<p>
-  fsm-page works!
-</p>
+
+  <div #cont class='container' style='background:lightblue;width:100%;margin:10px;padding:0' >
+    <fsm-view [fsm]='fsm' stateRadius='25' canvasSize='4000'></fsm-view>
+  </div>
+
+
+<div class='container'>
+  <div style='float:left'>
+<textarea [(ngModel)]='enteredText' cols='80' style='height:200px;' ></textarea>
+</div>
+<div style='float:left;padding-left:20px;'>
+    <p><button (click)='fromJSON()'>Load</button></p>
+</div>
+<div style='clear:both;'></div>
+<p><button (click)='testCreateFSM()'>Create</button></p>
+<p><button (click)='clear()'>Clear</button></p>
+<div style='border:1px solid black;height:200px;overflow-y: scroll;overflow-x:auto'>{{json}}</div>
+<p></p>
+  <div [hidden]='enteredText!==json'>
+    THEY ARE EQUAL
+  </div>
+  <div [hidden]='enteredText===json'>
+      THEY ARE NOT EQUAL
+    </div>
+</div>

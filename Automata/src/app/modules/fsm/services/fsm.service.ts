@@ -20,10 +20,10 @@ export class FsmService {
     return newFSM;
   }
 
-  setFsm(id: string, fsm: FSM) {
-    if (this.fsmMap.ContainsKey(id)) {
-      this.fsmMap.Remove(id);
+  setFsm(fsm: FSM) {
+    if (this.fsmMap.ContainsKey(fsm.id)) {
+      this.fsmMap.Remove(fsm.id);
     }
-    this.fsmMap.Add(id, fsm);
+    this.fsmMap.Add(fsm.id, fsm);
   }
 }

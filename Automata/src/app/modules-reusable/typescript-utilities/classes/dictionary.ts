@@ -10,7 +10,6 @@ export class Dictionary<T> {
         if (!this.items.hasOwnProperty(key)) {
             this.count++;
             this.keys.push(key);
-            this.values.push(value);
         }
         this.values = this.values.filter(val => this.items[key] !== val);
         this.values.push(value);
