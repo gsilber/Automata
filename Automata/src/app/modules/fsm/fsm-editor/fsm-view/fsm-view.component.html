@@ -36,6 +36,8 @@
             <!-- Or a loop back to ourself -->
             <!-- Draw Text-->
             <!-- Wrap it in a rotated rect with dashes that are only visible if selected and attach event handlers to the rect -->
+            <path [attr.d]='getTransPath(state,trans)' stroke="blue" stroke-width="5" fill="none" />
+          
           </ng-template>
         </ng-template>
       </svg:svg>
