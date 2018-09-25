@@ -70,7 +70,7 @@ export class FsmViewComponent implements OnInit {
 
         return '';
     }
-    getTransTrasform(state: FsmState, trans FsmTransition): string {
+    getTransTrasform(state: FsmState, trans: FsmTransition): string {
         // calculate the angle and rotate around the center point of state
         return '';
     }
