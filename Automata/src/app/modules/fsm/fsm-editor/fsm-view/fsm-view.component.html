@@ -51,14 +51,16 @@
 
                 </svg:g>            -->
             <ng-template [ngIf]='state.uniqueID!==trans.destinationStateId'>
-              <svg:g [attr.transform]='getTransTrasform(state,trans)'>
+                <svg:g [attr.transform]='getTransTrasform(state,trans)'>
                 <svg:path [attr.d]='getTransPath(state,trans)' stroke="black" stroke-width="2" fill="none" marker-end='url(#arrow)' />
               </svg:g>
               
             </ng-template>
-            <ng-template [ngIf]='state.uniqueID!==trans.destinationStateId'>
-              <svg:path [attr.d]='getSelfTransPath(state)' stroke='black' stroke-width='2' fill='none' />
-              <svg:line [attr.x2]='state.position.x' [attr.x1]='state.position.x' [attr.y2]='state.position.y-stateRadius' [attr.y1]='state.position.y-stateRadius-100' stroke='none' stroke-width='2' marker-end='url(#arrow)'></svg:line>
+            <ng-template [ngIf]='state.uniqueID===trans.destinationStateId'>
+              <svg:g [attr.transform]='"rotate("+trans.offset+" "+state.position.x+" "+state.position.y+")"'>
+                <svg:path [attr.d]='getSelfTransPath(state)' stroke='black' stroke-width='2' fill='none' />
+                <svg:line [attr.x2]='state.position.x' [attr.x1]='state.position.x' [attr.y2]='state.position.y-stateRadius' [attr.y1]='state.position.y-stateRadius-100' stroke='none' stroke-width='2' marker-end='url(#arrow)'></svg:line>
+              </svg:g>
             </ng-template>
             
           </ng-template>

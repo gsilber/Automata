@@ -75,10 +75,10 @@ export class FsmViewComponent implements OnInit {
 
     getSelfTransPath(state: FsmState) {
         const xPos = +state.position.x + +this.stateRadius;
-        const yPos=state.position.y - this.stateRadius-18;
+        const yPos = state.position.y - this.stateRadius - 18;
         const startPt = xPos + ' ' + state.position.y;
         const endPt = state.position.x + ' ' + yPos;
-        return 'M ' + startPt + 'A ' + this.stateRadius + ' ' + this.stateRadius + ' 0 1 0 ' + endPt;
+        return 'M ' + startPt + 'A ' + this.stateRadius * 1.05 + ' ' + this.stateRadius * 1.05 + ' 0 1 0 ' + endPt;
 
     }
     getTransPath(state: FsmState, trans: FsmTransition): string {
