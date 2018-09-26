@@ -55,6 +55,16 @@ export class FsmViewComponent implements OnInit {
         return '0 0 ' + (this.windowSize / this._scale) + ' ' + (this.windowSize / this._scale);
     }
 
+    // Point Utilities
+    private static distance(point1: { x: number, y: number }, point2: { x: number, y: number }) {
+        return Math.sqrt(Math.pow(point1.x - point2.x, 2) + Math.pow(point1.y - point2.y, 2));
+    }
+    private static angle(point1: { x: number, y: number }, point2: { x: number, y: number }) {
+        return Math.atan2(point2.y - point1.y, point2.x - point1.x);
+    }
+    private static angled(point1: { x: number, y: number }, point2: { x: number, y: number }) {
+        return this.angle(point1, point2) * 180 / Math.PI;
+    }
     // application
     constructor(_fsmSvc: FsmService) {
         this.fsm = _fsmSvc.getFsm();
@@ -63,16 +73,29 @@ export class FsmViewComponent implements OnInit {
     ngOnInit() {
     }
 
-    getTransPath(state: FsmState, trans: FsmTransition): string {
-        // get the distance between the points state and trans.dest
-        // return a path along x axis of that length from state with a fixed vertical offset and midpoint
-        // <path [attr.d]='"M 100 350 q 150 -300 300 0"' stroke="blue"
+    getSelfTransPath(state: FsmState) {
+        const xPos = +state.position.x + +this.stateRadius;
+        const yPos=state.position.y - this.stateRadius-18;
+        const startPt = xPos + ' ' + state.position.y;
+        const endPt = state.position.x + ' ' + yPos;
+        return 'M ' + startPt + 'A ' + this.stateRadius + ' ' + this.stateRadius + ' 0 1 0 ' + endPt;
 
-        return '';
     }
+    getTransPath(state: FsmState, trans: FsmTransition): string {
+        const destState = this.fsm.getStateById(trans.destinationStateId);
+        const distance = FsmViewComponent.distance(state.position, destState.position);
+        const cp = { x: state.position.x + distance / 2, y: state.position.y + trans.offset };
+        const offsetAngle = FsmViewComponent.angle(state.position, cp);
+        const offset = { x: Math.cos(offsetAngle) * this.stateRadius, y: Math.sin(offsetAngle) * this.stateRadius };
+        const c1 = { x: state.position.x + offset.x, y: state.position.y + offset.y };
+        const c2 = { x: state.position.x + distance - offset.x, y: c1.y };
+        return 'M ' + c1.x + ' ' + c1.y + ' Q ' + cp.x + ' ' + cp.y + ' ' + c2.x + ' ' + c2.y;
+    }
+
     getTransTrasform(state: FsmState, trans: FsmTransition): string {
         // calculate the angle and rotate around the center point of state
-        return '';
+        return 'rotate(' + FsmViewComponent.angled(state.position, this.fsm.getStateById(trans.destinationStateId).position) +
+            ' ' + state.position.x + ' ' + state.position.y + ')';
     }
 
     // encorce window is a square

@@ -37,8 +37,10 @@ export class FsmPageComponent implements OnInit {
     state2.start = true;
     state2.final = true;
     state1.AddTransition(state2, 'a|b');
+    state1.outboundTransitions[0].offset =50;
     state2.AddTransition(state2, 'a');
     state2.AddTransition(state1, 'b');
+    state2.outboundTransitions[1].offset=25;
 
   }
   fromJSON() {
