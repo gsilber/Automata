@@ -1,16 +1,12 @@
-
 <div class='fsm-view-container' #outsideDiv style='width:100%;' [style.height.px]='outsideDiv.offsetWidth'>
   <div style='width:100%;height:100%;overflow: scroll'>
     <div style='overflow: hidden;' [style.width.px]='scrollSize' [style.height.px]='scrollSize'>
       <svg:svg class='fsm-view-window' [attr.width]='windowSize' [attr.height]='windowSize' [attr.viewBox]='scaleBox'>
-          <svg:defs>
-              <svg:marker id="arrow" markerWidth="9" markerHeight="6" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">          
-                <svg:path d="M0,0 L0,6 L9,3 z" fill="#f00" />          
-              </svg:marker>          
-            </svg:defs>
-            <svg:marker id="arrow2" markerWidth="9" markerHeight="6" refX="0" refY="3" orient="auto" markerUnits="strokeWidth">          
-                <svg:path d="M0,0 L0,6 L9,3 z" fill="#f00" />          
-              </svg:marker>        
+        <svg:defs>
+          <svg:marker id="arrow" markerWidth="9" markerHeight="6" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+            <svg:path d="M0,0 L0,6 L9,3 z" fill="#f00" />
+          </svg:marker>
+        </svg:defs>
         <ng-template ngFor let-state [ngForOf]='fsm.states'>
           <ng-template [ngIf]='state.start'>
             <svg:circle class='fsm-view-state' [attr.cx]='state.position.x' [attr.cy]='state.position.y' [attr.r]='stateRadius'
@@ -37,9 +33,9 @@
             stroke='black' stroke-width='1' stroke-dasharray='5px 5px' (click)='onStateClick($event,state)' (dblclick)='onStateDblClick($event,state)'
             (mousedown)='onStateMouseDown($event,state)' (mouseup)='onStateMouseUp($event,state)' (mouseenter)='onStateMouseEnter($event,state)'
             (mouseleave)='onStateMouseLeave($event,state)' (mousemove)='onStateMouseMove($event,state)' (mouseover)='onStateMouseOver($event,state)'></svg:rect>
-          
-            <!-- Transitions -->
-          <ng-template ngFor let-trans [ngForOf]='state.outboundTransitions'>
+
+          <!-- Transitions -->
+          <ng-template ngFor let-trans [ngForOf]='state.outboundTransitions' let-i='index'>
             <!-- Draw Transitions here and hook up event handlers to the selected rectangle -->
             <!-- Need to draw a curve with an arrowhead and some concept of concavity and direction of concavity-->
             <!-- Or a loop back to ourself -->
@@ -51,18 +47,28 @@
 
                 </svg:g>            -->
             <ng-template [ngIf]='state.uniqueID!==trans.destinationStateId'>
-                <svg:g [attr.transform]='getTransTrasform(state,trans)'>
-                <svg:path [attr.d]='getTransPath(state,trans)' stroke="black" stroke-width="2" fill="none" marker-end='url(#arrow)' />
-              </svg:g>
+              <svg:g [attr.transform]='getTransTransform(state,trans)'>
+                <svg:path class='fsm-view-transition' [attr.id]='state.uniqueID+i' [attr.d]='getTransPath(state,trans)'
+                  stroke="black" stroke-width="2" fill="none" marker-end='url(#arrow)' />
               
+                
+                  <text stroke='blue' fill='none' stroke-width='1' class='fsm-view-transition-text' dy="+1em">
+                    <textPath [attr.href]='"#"+state.uniqueID+i' startOffset='50%' text-anchor='middle'>
+                      abcdefg
+                    </textPath>
+                  </text>
+                </svg:g>
+              
+
             </ng-template>
             <ng-template [ngIf]='state.uniqueID===trans.destinationStateId'>
               <svg:g [attr.transform]='"rotate("+trans.offset+" "+state.position.x+" "+state.position.y+")"'>
                 <svg:path [attr.d]='getSelfTransPath(state)' stroke='black' stroke-width='2' fill='none' />
-                <svg:line [attr.x2]='state.position.x' [attr.x1]='state.position.x' [attr.y2]='state.position.y-stateRadius' [attr.y1]='state.position.y-stateRadius-100' stroke='none' stroke-width='2' marker-end='url(#arrow)'></svg:line>
+                <svg:line [attr.x2]='state.position.x' [attr.x1]='state.position.x' [attr.y2]='state.position.y-stateRadius'
+                  [attr.y1]='state.position.y-stateRadius-100' stroke='none' stroke-width='2' marker-end='url(#arrow)'></svg:line>
               </svg:g>
             </ng-template>
-            
+
           </ng-template>
         </ng-template>
       </svg:svg>
