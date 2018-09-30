@@ -51,12 +51,11 @@
                 <svg:path class='fsm-view-transition' [attr.id]='state.uniqueID+i' [attr.d]='getTransPath(state,trans)'
                   stroke="black" stroke-width="2" fill="none" marker-end='url(#arrow)' />
               
-                
-                  <text stroke='blue' fill='none' stroke-width='1' class='fsm-view-transition-text' dy="+1em">
-                    <textPath [attr.href]='"#"+state.uniqueID+i' startOffset='50%' text-anchor='middle'>
-                      abcdefg
-                    </textPath>
-                  </text>
+                  <text stroke='blue' fill='none' stroke-width='1' class='fsm-view-transition-text' [attr.dy]='(getTransTextRotation(state,trans)?"-.5em":"+1em")' [attr.rotate]='getTransTextRotation(state,trans)?180:0'>
+                      <textPath [attr.href]='"#"+state.uniqueID+i' startOffset='50%' text-anchor='middle'>
+                        {{getTransTextRotation(state,trans)?"abcdefg".split("").reverse().join(""):"abcdefg"}}
+                      </textPath>
+                    </text>
                 </svg:g>
               
 

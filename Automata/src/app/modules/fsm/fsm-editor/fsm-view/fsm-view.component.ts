@@ -104,6 +104,13 @@ export class FsmViewComponent implements OnInit {
             this.fsm.getStateById(trans.destinationStateId).position) + ' -' + offset.x + ',-' + offset.y + ')';
     }
 
+    getTransTextRotation(state: FsmState, trans: FsmTransition): boolean {
+        console.log(FsmViewComponent.angled(state.position, this.fsm.getStateById(trans.destinationStateId).position))
+        if (FsmViewComponent.angled(state.position, this.fsm.getStateById(trans.destinationStateId).position) < 0) {
+            return true;
+        }
+        return false;
+    }
     // encorce window is a square
     @HostListener('window:resize') onResize() {
         if (this.outsideDiv) {
