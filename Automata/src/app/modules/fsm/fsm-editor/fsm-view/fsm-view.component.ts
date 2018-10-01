@@ -112,8 +112,8 @@ export class FsmViewComponent implements OnInit {
     }
 
     getSelfTransPosition(state: FsmState, trans: FsmTransition): { x: number, y: number } {
-        const xOffset = 45;
-        const yOffset = -45;
+        const xOffset = this.stateRadius * 1.75 + 2;
+        const yOffset = -1.75 * this.stateRadius - 2;
         const angle = trans.offset * (Math.PI / 180);
         const newPt = {
             x: Math.cos(angle) * xOffset - Math.sin(angle) * yOffset,
