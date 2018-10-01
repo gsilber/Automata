@@ -31,7 +31,7 @@ export class FsmPageComponent implements OnInit {
 
   }
 
-  
+
   testCreateFSM() {
     this.clear();
     const state1 = this.fsm.NewState('Q1', { x: 100, y: 100 });

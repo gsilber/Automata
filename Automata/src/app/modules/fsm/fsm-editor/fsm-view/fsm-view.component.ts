@@ -105,7 +105,6 @@ export class FsmViewComponent implements OnInit {
     }
 
     getTransTextRotation(state: FsmState, trans: FsmTransition): boolean {
-        console.log(FsmViewComponent.angled(state.position, this.fsm.getStateById(trans.destinationStateId).position))
         if (FsmViewComponent.angled(state.position, this.fsm.getStateById(trans.destinationStateId).position) < 0) {
             return true;
         }
