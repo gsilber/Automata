@@ -111,6 +111,17 @@ export class FsmViewComponent implements OnInit {
         }
         return false;
     }
+
+    getSelfTransPosition(state: FsmState, trans: FsmTransition): { x: number, y: number } {
+        const xOffset = 45;
+        const yOffset = -45;
+        const angle = trans.offset * (Math.PI / 180);
+        const newPt = {
+            x: Math.cos(angle) * xOffset - Math.sin(angle) * yOffset,
+            y: Math.sin(angle) * xOffset + Math.cos(angle) * yOffset
+        };
+        return { x: newPt.x + state.position.x, y: newPt.y + state.position.y };
+    }
     // encorce window is a square
     @HostListener('window:resize') onResize() {
         if (this.outsideDiv) {

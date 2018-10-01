@@ -30,6 +30,8 @@ export class FsmPageComponent implements OnInit {
     this.fsm.clear();
 
   }
+
+  
   testCreateFSM() {
     this.clear();
     const state1 = this.fsm.NewState('Q1', { x: 100, y: 100 });
@@ -40,8 +42,9 @@ export class FsmPageComponent implements OnInit {
     state1.outboundTransitions[0].offset = 50;
     state2.AddTransition(state2, 'a');
     state2.AddTransition(state1, 'b');
-    state2.outboundTransitions[1].offset = 10;
+    state2.outboundTransitions[1].offset = 50;
     state2.outboundTransitions[0].offset = 0;
+
 
   }
   fromJSON() {

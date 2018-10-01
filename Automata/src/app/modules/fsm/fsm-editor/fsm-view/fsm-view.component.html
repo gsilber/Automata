@@ -40,27 +40,27 @@
               <svg:g [attr.transform]='getTransTransform(state,trans)'>
                 <svg:path class='fsm-view-transition' [attr.id]='state.uniqueID+i' [attr.d]='getTransPath(state,trans)'
                   stroke="black" stroke-width="2" fill="none" marker-end='url(#arrow)' />
-              
-                  <text stroke='blue' fill='none' stroke-width='1' class='fsm-view-transition-text' [attr.dy]='(getTransTextRotation(state,trans)?"-.5em":"+1em")' [attr.rotate]='getTransTextRotation(state,trans)?180:0'>
-                      <textPath [attr.href]='"#"+state.uniqueID+i' startOffset='50%' text-anchor='middle'>
-                        {{getTransTextRotation(state,trans)?"abcdefg".split("").reverse().join(""):"abcdefg"}}
-                      </textPath>
-                    </text>
-                </svg:g>
-              
+
+                <text stroke='blue' fill='none' stroke-width='1' class='fsm-view-transition-text' [attr.dy]='(getTransTextRotation(state,trans)?"-.5em":"+1em")'
+                  [attr.rotate]='getTransTextRotation(state,trans)?180:0'>
+                  <textPath [attr.href]='"#"+state.uniqueID+i' startOffset='50%' text-anchor='middle'>
+                    {{getTransTextRotation(state,trans)?trans.pattern.split("").reverse().join(""):trans.pattern}}
+                  </textPath>
+                </text>
+              </svg:g>
+
 
             </ng-template>
             <ng-template [ngIf]='state.uniqueID===trans.destinationStateId'>
               <svg:g [attr.transform]='"rotate("+trans.offset+" "+state.position.x+" "+state.position.y+")"'>
-                <svg:path [attr.d]='getSelfTransPath(state)' stroke='black' stroke-width='2' fill='none'  [attr.id]='state.uniqueID+i'/>
+                <svg:path [attr.d]='getSelfTransPath(state)' stroke='black' stroke-width='2' fill='none' [attr.id]='state.uniqueID+i' />
                 <svg:line [attr.x2]='state.position.x' [attr.x1]='state.position.x' [attr.y2]='state.position.y-stateRadius'
                   [attr.y1]='state.position.y-stateRadius-100' stroke='none' stroke-width='2' marker-end='url(#arrow)'></svg:line>
-
-
-                  </svg:g>
-                  <text [attr.x]='(state.position.x)' [attr.y]='state.position.y' stroke='blue' fill='none' stroke-width='1' class='fsm-view-transition-text' >                     
-                      abc
-                  </text>
+              </svg:g>
+              <text [attr.x]='getSelfTransPosition(state,trans).x' [attr.y]='getSelfTransPosition(state,trans).y' stroke='blue' fill='none' stroke-width='1' [attr.dy]='trans.offset>45 && trans.offset<225?"+.6em":""' [attr.text-anchor]='trans.offset>135 && trans.offset<315?"end":"start"' 
+                class='fsm-view-transition-text'>
+                {{trans.pattern}}bcd
+              </text>
             </ng-template>
 
           </ng-template>
